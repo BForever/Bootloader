@@ -1,6 +1,5 @@
 #include "ata.h"
 #include "io.h"
-#include "vga.h"
 
 void ata_delay()
 {
