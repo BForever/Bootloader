@@ -28,9 +28,9 @@ export QEMU_FLAG	:= -machine $(QEMU_MACHINE) \
 					   -monitor stdio -vga cirrus \
 					   -drive file=disk.vhd,format=vpc,if=ide,media=disk
 export QEMU_GDB_FLAG:= -S -gdb tcp::1234
-
+export QEMU_TRACE_FLAG:= -trace events=./events
 # objects
-export OBJS := start.o preboot.o boot.o vga.o io.o ata.o kernel_loader.o
+export OBJS := start.o preboot.o boot.o io.o ata.o kernel_loader.o serial.o kprintf.o
 
 # dependencies
 %.o: %.c
@@ -68,6 +68,10 @@ run: all
 .PHONY: run-gdb
 run-gdb: all
 	$(QEMU) $(QEMU_FLAG) $(QEMU_GDB_FLAG)
+
+.PHONY: runt
+runt:
+	$(QEMU) $(QEMU_FLAG) $(QEMU_TRACE_FLAG)
 
 # clean
 .PHONY: clean
