@@ -10,11 +10,14 @@ void goto_kernel()
 
 void boot()
 {
+	kprintf("[BootLoader] Init ATA driver...\n");
 	ata_init();
+	kprintf("[BootLoader] ATA Init Done.\n");
+	kprintf("[BootLoader] Loading kernel...\n");
 	load_kernel();
+	kprintf("[BootLoader] Kernel loaded.\n");
+	kprintf("[BootLoader] Jump to kernel.\n");
 	goto_kernel();
-//	test_printf();
-//	test_serial();
 	while (1)
 		;
 }
